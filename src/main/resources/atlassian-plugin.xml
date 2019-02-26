@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->  
+  <resource type="i18n" name="i18n" location="vacation"/>  
+  <!-- add our web resources -->  
+  <web-resource key="vacation-resources" name="vacation Web Resources"> 
+    <dependency>com.atlassian.auiplugin:ajs</dependency>  
+    <resource type="download" name="vacation.css" location="/css/vacation.css"/>  
+    <resource type="download" name="vacation.js" location="/js/vacation.js"/>  
+    <resource type="download" name="images/" location="/images"/>  
+    <context>vacation</context> 
+  </web-resource>
+
+  <report name="Vacation Planning Report" i18n-name-key="vacation-planning-report.name" key="vacation-planning-report" class="ua.telecontact.jira.reports.VacationPlanningReport"> 
+    <description key="vacation-planning-report.description">The Vacation Planning Report Plugin</description>  
+    <resource name="view" type="velocity" location="/templates/reports/vacation-planning-report/view.vm"/>
+    <resource name="excel" type="velocity" location="/templates/reports/vacation-planning-report/excel.vm"/>
+    <resource name="i18n" type="i18n" location="VacationPlanningReport"/>  
+    <label key="vacation-planning-report.label"></label>
+
+    <properties>
+        <property>
+            <key>area</key>
+            <name>vacation-planning-report.area.name</name>
+            <description>vacation-planning-report.area.description</description>
+            <type>select</type>
+            <values class="ua.telecontact.jira.reports.GetAreas"/>
+        </property>
+        <property>
+            <key>codeProject</key>
+            <name>vacation-planning-report.codeProject.name</name>
+            <description>vacation-planning-report.codeProject.description</description>
+            <type>long</type>
+        </property>
+        <property>
+            <key>periodFrom</key>
+            <name>vacation-planning-report.periodFrom.name</name>
+            <description>vacation-planning-report.periodFrom.description</description>
+            <type>date</type>
+        </property>
+        <property>
+            <key>periodTo</key>
+            <name>vacation-planning-report.periodTo.name</name>
+            <description>vacation-planning-report.periodTo.description</description>
+            <type>date</type>
+        </property>
+
+        <!--<property>
+            <key>mounth</key>
+            <name>vacation-planning-report.mounth.name</name>
+            <description>vacation-planning-report.mounth.description</description>
+            <type>select</type>
+            <values>
+                <value><key>january</key><value>vacation-planning-report.mounth.january</value></value>
+                <value><key>february</key><value>vacation-planning-report.mounth.february</value></value>
+                <value><key>march</key><value>vacation-planning-report.mounth.march</value></value>
+                <value><key>april</key><value>vacation-planning-report.mounth.april</value></value>
+                <value><key>may</key><value>vacation-planning-report.mounth.may</value></value>
+                <value><key>june</key><value>vacation-planning-report.mounth.june</value></value>
+                <value><key>july</key><value>vacation-planning-report.mounth.july</value></value>
+                <value><key>august</key><value>vacation-planning-report.mounth.august</value></value>
+                <value><key>september</key><value>vacation-planning-report.mounth.september</value></value>
+                <value><key>october</key><value>vacation-planning-report.mounth.october</value></value>
+                <value><key>november</key><value>vacation-planning-report.mounth.november</value></value>
+                <value><key>december</key><value>vacation-planning-report.mounth.december</value></value>
+            </values>
+        </property>-->
+    </properties>
+
+  </report>
+</atlassian-plugin>

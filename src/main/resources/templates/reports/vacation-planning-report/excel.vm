@@ -1,0 +1,60 @@
+<style type="text/css">
+.planning{
+  background-color: #4CAF50;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.planning:hover{
+  background-color: #4ce450;
+}
+.issue{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.dayInPeriod{
+    border-left: 2px groove #dfe1e6;
+    border-right: 2px groove #dfe1e6;
+}
+</style>
+<script type="text/javascript">
+
+</script>
+<table class="aui aui-table-list">
+  <thead>
+    <tr>
+        <th id="fio"></th>
+        <th id="codeProject">Код проекта</th>
+        <th id="position">Должность</th>
+        #foreach($dayInPeriod in $daysInPeriod)
+            <td class="dayInPeriod">$dayInPeriod</td>
+        #end
+    </tr>
+  </thead>
+  <tbody>
+     #foreach ($issue in $resultIssues.keySet())
+     <tr class="issue">
+       <td headers="reporter">
+           <span class="aui-avatar aui-avatar-small"><span class="aui-avatar-inner">
+                   <img src="/jira/secure/useravatar?ownerId=$issue.reporter.username" alt="$issue.reporter.displayName" />
+           </span></span>
+           <a href="/browse/$issue.key">$issue.reporter.displayName</a>
+       </td>
+       <td>
+            $issue.getCustomFieldValue($customFieldManager.getCustomFieldObjectByName("Код проекта"))
+       </td>
+       <td>
+            $issue.getCustomFieldValue($customFieldManager.getCustomFieldObjectByName("Период с"))
+       </td>
+       #set($days=$resultIssues.get($issue))
+       #foreach($day in $days)
+           #if($day==1)
+             <td class='planning'></td>
+           #else
+             <td class='notPlanning'></td>
+           #end
+       #end
+     </tr>
+     #end
+  </tbody>
+</table>
